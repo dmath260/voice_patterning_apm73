@@ -3,9 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VOICE PATTERNS</title>
+<title>Voice Patterns</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;300;400&family=Cinzel:wght@400;700&display=swap');
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -14,7 +13,7 @@ body {
   overflow: hidden;
   width: 100vw;
   height: 100vh;
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: 'Courier New', monospace;
 }
 
 canvas {
@@ -42,19 +41,19 @@ canvas {
   pointer-events: none;
 }
 #title-block h1 {
-  font-family: 'Cinzel', serif;
+  font-family: 'Courier New', monospace;
   font-weight: 400;
-  font-size: 11px;
+  font-size: 14px;
   letter-spacing: 8px;
-  color: rgba(255,255,255,0.25);
+  color: rgba(0,192,255,0.5);
   text-transform: uppercase;
 }
 #mode-name {
-  font-family: 'Cinzel', serif;
-  font-size: 18px;
+  font-family: 'Courier New', monospace;
+  font-size: 24px;
   font-weight: 700;
   letter-spacing: 6px;
-  color: rgba(255,255,255,0.7);
+  color: rgba(0,192,255,0.85);
   margin-top: 4px;
   text-shadow: 0 0 30px currentColor;
   transition: color 0.8s, text-shadow 0.8s;
@@ -75,47 +74,51 @@ canvas {
 }
 
 .mode-btn {
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: 'Courier New', monospace;
   font-weight: 300;
-  font-size: 9px;
+  font-size: 10px;
   letter-spacing: 3px;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.35);
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.1);
+  color: rgba(0,204,0,0.6);
+  background: rgba(0,204,0,0.2);
+  border: 1px solid rgba(0,204,0,0.1);
   padding: 8px 16px;
   cursor: pointer;
   transition: all 0.3s;
   border-radius: 0;
 }
-.mode-btn:hover { color: rgba(255,255,255,0.8); border-color: rgba(255,255,255,0.4); }
+.mode-btn:hover {
+  color: rgba(0,204,0,0.8);
+  background: rgba(0,204,0,0.3);
+  border-color: rgba(0,204,0,0.4);
+}
 .mode-btn.active {
-  color: #fff;
-  border-color: rgba(255,255,255,0.6);
-  background: rgba(255,255,255,0.06);
+  color: #0c0;
+  border-color: rgba(0,204,0,0.6);
+  background: rgba(0,204,0,0.4);
   text-shadow: 0 0 12px #fff;
 }
 
 #start-btn {
-  font-family: 'Cinzel', serif;
-  font-size: 11px;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
   letter-spacing: 4px;
-  color: #fff;
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.5);
+  color: #0c0;
+  background: rgba(0,204,0,0.2);
+  border: 1px solid rgba(0,204,0,0.5);
   padding: 10px 28px;
   cursor: pointer;
   transition: all 0.4s;
   text-transform: uppercase;
 }
 #start-btn:hover {
-  background: rgba(255,255,255,0.08);
-  border-color: #fff;
+  background: rgba(0,204,0,0.3);
+  border-color: rgba(0,204,0,0.4);
   box-shadow: 0 0 24px rgba(255,255,255,0.2);
 }
 #start-btn.live {
-  color: rgba(255,255,255,0.4);
-  border-color: rgba(255,255,255,0.2);
+  color: rgba(0,204,0,0.4);
+  border-color: rgba(0,204,0,0.6);
 }
 
 /* Left side freq bars */
@@ -137,7 +140,7 @@ canvas {
 .freq-lbl {
   font-size: 8px;
   letter-spacing: 2px;
-  color: rgba(255,255,255,0.25);
+  color: rgba(0,192,255,0.5);
   width: 40px;
   text-align: right;
 }
@@ -165,8 +168,8 @@ canvas {
   pointer-events: none;
 }
 #note-name {
-  font-family: 'Cinzel', serif;
-  font-size: 48px;
+  font-family: 'Courier New', monospace;
+  font-size: 54px;
   font-weight: 700;
   color: rgba(255,255,255,0.08);
   line-height: 1;
@@ -174,7 +177,7 @@ canvas {
   text-shadow: none;
 }
 #note-freq {
-  font-size: 9px;
+  font-size: 10px;
   letter-spacing: 2px;
   color: rgba(255,255,255,0.15);
   margin-top: 4px;
@@ -192,7 +195,7 @@ canvas {
   transition: opacity 0.8s;
 }
 #hint p {
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: 'Courier New', monospace;
   font-weight: 100;
   font-size: 13px;
   letter-spacing: 6px;
@@ -284,7 +287,7 @@ canvas {
   const LISS_HISTORY = 800;
 
   // Init particle pool
-  for (let i = 0; i < 220; i++) {
+  for (let i = 0; i < 175; i++) {
     particles.push(newParticle());
   }
 
@@ -430,14 +433,17 @@ canvas {
     ctx.stroke();
 
     // Draw glowing trail
-    for (let i = 1; i < lissHistory.length; i++) {
+    const rounds = 200;
+    for (let i = lissHistory.length - rounds; i < lissHistory.length; i++) {
+      if (i < 1) i = 1;
       const age = i / lissHistory.length;
       const pt = lissHistory[i];
       const prev = lissHistory[i - 1];
+      const mod = 1 - (lissHistory.length - i) / rounds;
       ctx.beginPath();
       ctx.moveTo(prev.x, prev.y);
       ctx.lineTo(pt.x, pt.y);
-      ctx.strokeStyle = hsl(pt.hue + age * 60, 90, 65, age * 0.8 * alpha);
+      ctx.strokeStyle = hsl(pt.hue + age * 60, 90, 65, age * mod * alpha);
       ctx.lineWidth = 1.5 + pt.rms * 4;
       ctx.shadowBlur = 8 + pt.rms * 20;
       ctx.shadowColor = hsl(pt.hue, 100, 70);
@@ -458,7 +464,7 @@ canvas {
   // 2. MANDALA — polar pattern driven by frequency bands
   function drawMandala(x0, y0, w, h, alpha = 1) {
     const r = Math.min(w, h) * 0.42;
-    const petals = Math.round(4 + sCentroid / 300);
+    const petals = Math.round(4 + sCentroid / 500);
     const rotSpeed = sMid * 0.04 + 0.003;
     const innerR = r * (0.15 + sBass * 0.3);
     const outerR = r * (0.5 + sRMS * 0.5);
@@ -508,7 +514,7 @@ canvas {
     }
 
     // Center orb
-    const orbR = innerR * (0.5 + sRMS * 1.5);
+    const orbR = innerR * (0.5 + sRMS * 1.5) / 5;
     const orbGrad = ctx.createRadialGradient(0, 0, 0, 0, 0, orbR);
     orbGrad.addColorStop(0, hsl(sHue, 100, 95, 0.9));
     orbGrad.addColorStop(0.4, hsl(sHue + 30, 90, 60, 0.6));
@@ -556,7 +562,7 @@ canvas {
     }
 
     // Draw connections between nearby particles
-    const connectDist = 60 + sBass * 80;
+    const connectDist = 60 + sBass * 120;
     ctx.lineWidth = 0.4;
     ctx.shadowBlur = 0;
     for (let i = 0; i < particles.length; i += 2) {
@@ -599,20 +605,20 @@ canvas {
   function drawInterference(x0, y0, w, h, alpha = 1) {
     const maxR = Math.min(w, h) * 0.46;
     const rings = Math.round(6 + sCentroid / 400);
-    const waveFreq = 3 + sBass * 5;
-    const distortion = sMid * 0.35 + sHighMid * 0.2;
+    const waveFreq = 3 + sBass * 2;
+    const distortion = sMid * 0.75 + sHighMid * 0.5;
 
     ctx.save();
     ctx.globalAlpha = alpha;
 
     // Source 1 offset
-    const s1x = x0 - maxR * 0.25 * (1 + sBass * 0.5);
+    const s1x = x0 - maxR * 0.25 * (0 + sBass * 0.5);
     const s1y = y0 + Math.sin(t * 0.3) * maxR * 0.1;
     // Source 2 offset
-    const s2x = x0 + maxR * 0.25 * (1 + sHighMid * 0.5);
+    const s2x = x0 + maxR * 0.25 * (0 + sHighMid * 0.5);
     const s2y = y0 - Math.sin(t * 0.3) * maxR * 0.1;
 
-    const res = 3;
+    const res = 4;
     for (let px = x0 - maxR; px <= x0 + maxR; px += res) {
       for (let py = y0 - maxR; py <= y0 + maxR; py += res) {
         const d1 = Math.hypot(px - s1x, py - s1y);
@@ -734,9 +740,9 @@ canvas {
       drawInterference(hw * 1.5, hh * 1.5, hw, hh, 0.85);
 
       // Quad labels
-      ctx.font = '9px "Josefin Sans"';
-      ctx.letterSpacing = '3px';
-      ctx.fillStyle = 'rgba(255,255,255,0.18)';
+      ctx.font = '10px "Courier New"';
+      ctx.letterSpacing = '4px';
+      ctx.fillStyle = 'rgba(0,192,255,0.45)';
       ctx.fillText('LISSAJOUS', 14, 18);
       ctx.fillText('MANDALA', hw + 14, 18);
       ctx.fillText('CONSTELLATION', 14, hh + 18);
