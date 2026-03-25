@@ -768,7 +768,7 @@ canvas {
       drawLissajous(hw * 0.5, hh * 0.5, hw, hh, 0.85);
       drawMandala(hw * 1.5, hh * 0.5, hw, hh, 0.85);
       drawConstellation(hw * 0.5, hh * 1.5, hw, hh, 0.85);
-      drawInterference(hw * 1.5, hh * 1.5, hw, hh, 0.85);
+      drawRadialWave(hw * 1.5, hh * 1.5, hw, hh, 0.85);
 
       // Quad labels
       ctx.font = '10px "Courier New"';
@@ -777,7 +777,7 @@ canvas {
       ctx.fillText('LISSAJOUS', 14, 18);
       ctx.fillText('MANDALA', hw + 14, 18);
       ctx.fillText('CONSTELLATION', 14, hh + 18);
-      ctx.fillText('INTERFERENCE', hw + 14, hh + 18);
+      ctx.fillText('RADIAL WAVE', hw + 14, hh + 18);
 
       // Grid dividers
       ctx.strokeStyle = 'rgba(255,255,255,0.05)';
